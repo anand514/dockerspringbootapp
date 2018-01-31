@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.thomsonreuters.cpl</groupId>
+	<artifactId>reqwired-engine</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>cpl-reqwired-engine</name>
+	<description>Supports xml rules engine and corresponding UI screens</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<docker.image.prefix>dockersampleapp</docker.image.prefix>
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jgrasstools</groupId>
+			<artifactId>jgt-oms3</artifactId>
+			<version>0.8.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.gnu</groupId>
+			<artifactId>jel</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<!-- JSTL for JSP -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<!-- Need this to compile JSP -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Need this to compile JSP, tomcat-embed-jasper version is not working, 
+			no idea why -->
+		<dependency>
+			<groupId>org.eclipse.jdt.core.compiler</groupId>
+			<artifactId>ecj</artifactId>
+			<version>4.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		<!-- this jar is for conditional checking in logback configuration file -->
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.trgr.cobalt.infrastructure</groupId>
+			<artifactId>ServiceRegistry</artifactId>
+			<version>36.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thomsonreuters.enterpriselogging</groupId>
+			<artifactId>TRLoggingExtensions</artifactId>
+			<version>38.3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.thomsonreuters.enterpriselogging</groupId>
+			<artifactId>TRKafkaMessagingUtil</artifactId>
+			<version>32.3.36</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-vfs2</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+	</dependencies>
+
+
+	<profiles>
+		<profile>
+			<id>remoteSonar</id>
+			<properties>
+				<sonar.host.url>http://c454ryfopgrcd.ecomqc.tlrg.com:9000</sonar.host.url>
+				<sonar.jdbc.password>sonar</sonar.jdbc.password>
+				<sonar.jdbc.url>jdbc:mysql://c454ryfopgrcd.ecomqc.tlrg.com:3306/sonar</sonar.jdbc.url>
+				<sonar.jdbc.username>sonar</sonar.jdbc.username>
+				<sonar.lifecyclephase>verify</sonar.lifecyclephase>
+				<sonar.language>java</sonar.language>
+				<sonar.java.source>1.8</sonar.java.source>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>preview</id>
+			<properties>
+				<sonar.host.url>http://c454ryfopgrcd.ecomqc.tlrg.com:9000</sonar.host.url>
+				<sonar.jdbc.username>sonar</sonar.jdbc.username>
+				<sonar.jdbc.password>sonar</sonar.jdbc.password>
+				<sonar.jdbc.url>jdbc:mysql://c454ryfopgrcd.ecomqc.tlrg.com:3306/sonar</sonar.jdbc.url>
+				<sonar.language>java</sonar.language>
+				<sonar.analysis.mode>preview</sonar.analysis.mode>
+				<sonar.issuesReport.console.enable>true</sonar.issuesReport.console.enable>
+				<sonar.issuesReport.html.enable>true</sonar.issuesReport.html.enable>
+				<sonar.lifecyclephase>verify</sonar.lifecyclephase>
+				<sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>
+				<sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
+			</properties>
+		</profile>
+
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.3.6</version>
+				<configuration>
+					<username>dockersampleapp</username>
+					<password>Mohan#514</password>
+					<imageName>springdockersampleapp</imageName>
+        			<baseImage>java</baseImage>
+        			<entryPoint>["java", "-jar", "/${project.build.finalName}.war"]</entryPoint>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<scm>
+		<connection>scm:git:./</connection>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>repos</id>
+			<url>http://repository.westlegaledcenter.com:8000/nexus/content/groups/public</url>
+		</repository>
+		<repository>
+			<id>other-repos</id>
+			<url>http://repository.westlegaledcenter.com:8000/nexus/content/repositories/thirdparty</url>
+		</repository>
+
+		<repository>
+			<id>BAMS Repository</id>
+			<url>https://bams-amers-sami.int.thomsonreuters.com/artifactory/ext-release.maven.global/</url>
+		</repository>
+
+		<repository>
+			<id>Nexus repository</id>
+			<url>http://cobaltdm.int.thomsonreuters.com:9001/nexus-webapps/content/repositories/CobaltInternalLibraries/</url>
+		</repository>
+
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>release</id>
+			<name>BAMS Release Repository</name>
+			<url>http://bams-amers-sami-api.int.thomsonreuters.com/artifactory/default.maven.local/CPL-Required/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Internal Snapshots</name>
+			<url>http://bams-amers-sami-api.int.thomsonreuters.com/artifactory/default.maven.local/CPL-Required-snapshot/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>
