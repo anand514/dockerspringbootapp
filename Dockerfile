@@ -1,5 +1,5 @@
-FROM openjdk:8-jre-alpine
-# copy application WAR (with libraries inside)
-COPY target/reqwired-engine-*.war /app.war
-# specify default command
-CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=test", "/app.war"]
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ARG JAR_FILE
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
