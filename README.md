@@ -16,3 +16,5 @@ https://spring.io/guides/gs/spring-boot-docker/
 
 - run the image you want using the command
 
+
+#### docker service create --env-file=/home/kirk/docker/main.env --replicas 1 --name rulesengine --publish 8080:8080 --log-driver gelf --log-opt gelf-address="udp://172.17.0.4:12201" --log-opt tag="rulesengine" reqwired-engine:latest
