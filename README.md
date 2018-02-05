@@ -20,3 +20,6 @@ https://spring.io/guides/gs/spring-boot-docker/
 #### docker service create --env-file=/home/kirk/docker/main.env --replicas 1 --name rulesengine --publish 8080:8080 --log-driver gelf --log-opt gelf-address="udp://172.17.0.4:12201" --log-opt tag="rulesengine" reqwired-engine:latest
 
 - check this link for more info https://blog.docker.com/2017/02/adventures-in-gelf/
+
+- check one more link http://container.training/
+
